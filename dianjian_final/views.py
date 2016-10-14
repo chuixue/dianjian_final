@@ -28,9 +28,10 @@ def get_hello(request):
 
 def get_flow(request):
     callback = request.GET['callback']
-    #key = request.GET['key']
+    dateStart = request.GET['dateStart']
+    dateEnd = request.GET['dateEnd']
     
-    data = pf.getFlow()
+    data = pf.getFlow(dateStart, dateEnd)
     
     return HttpResponse('%s(%s)' % (callback, json.dumps(data)), content_type='application/json') 
 
