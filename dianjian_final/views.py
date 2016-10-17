@@ -30,7 +30,7 @@ def get_flow(request):
     callback = request.GET['callback']
     dateStart = request.GET['dateStart']
     dateEnd = request.GET['dateEnd']
-    
+    print 'get_flow'
     data = pf.getFlow(dateStart, dateEnd)
     
     return HttpResponse('%s(%s)' % (callback, json.dumps(data)), content_type='application/json') 

@@ -18,10 +18,11 @@ def getFlow(dateStart, dateEnd):
     dateEnd = datetime.datetime(int(tpe[0]), int(tpe[1]), int(tpe[2]))
     #sql = "select personId, count(*) from {} group by ".format(tbName)
     #sql = "select sTime, count(*) from {} group by personId".format(tbName)
+    #sqlw = "select weekday(sTime), count(*) from {} group by weekday(sTime)".format(tbName)
+    #print db.getKeys(tbName); return
     sql = "select personId, sTime, tTime, source, target from {} where sTime >= '{}' and sTime<'{}'".format(tbName,
                           dateStart, dateEnd)
-#    sqlw = "select weekday(sTime), count(*) from {} group by weekday(sTime)".format(tbName)
-#    print db.getKeys(tbName); return
+    count = 0
     units = {}
     persons = {}
     lsUnit = {}
@@ -30,9 +31,7 @@ def getFlow(dateStart, dateEnd):
     for personId, unit in db.select("select personId, unit from md_person"): 
         if unit in units: persons[personId] = unit
     
-    count = 0
     data = {}
-#    lsUnit = ["部门A", "部门B", "部门C", "部门D"]
     for (personId, sTime, tTime, source, target) in db.select(sql):
         if personId not in persons: continue
         wd = sTime.weekday()
@@ -43,10 +42,10 @@ def getFlow(dateStart, dateEnd):
         if sh not in data[wd]: data[wd][sh] = {}
         if unit not in data[wd][sh]: data[wd][sh][unit] = {source:0, target:0}
         data[wd][sh][unit][source] += 1
-        print sTime
+        
     return {'data':data}
 
-#, 'weekday':db.select(sqlw).fetchall()}
+
 
 if __name__ == '__main__':
     dt = datetime.datetime.now()
