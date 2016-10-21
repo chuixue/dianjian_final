@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
     url(r'^get_hello/', views.get_hello, name='people'),
-    url(r'^get_flow/', views.get_flow)
+    url(r'^get_flow/', views.get_flow),
+    url(r'^get_clock/', views.get_clock)
     
 ]

@@ -46,7 +46,6 @@ def getFlow(dateStart, dateEnd):
     return {'data':data}
 
 
-
 if __name__ == '__main__':
     dt = datetime.datetime.now()
 

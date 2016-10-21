@@ -13,6 +13,7 @@ from django.http import HttpResponse
 
 import hello as H
 import ps_flow as pf  
+import ps_clock as pc
     
 def index(request):
     return HttpResponse('寻英大数据挖掘中……')
@@ -34,6 +35,16 @@ def get_flow(request):
     data = pf.getFlow(dateStart, dateEnd)
     
     return HttpResponse('%s(%s)' % (callback, json.dumps(data)), content_type='application/json') 
+
+def get_clock(request):
+    callback = request.GET['callback']
+
+    print 'get_clock'
+    data = pc.getClock(None, None)
+    
+    return HttpResponse('%s(%s)' % (callback, json.dumps(data)), content_type='application/json')
+
+
 
 
 
